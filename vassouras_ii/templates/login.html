@@ -1,0 +1,100 @@
+{% extends 'master.html' %}
+
+{% block titulo%}
+VassouraS2
+{% endblock %}
+
+{% block conteudo %}
+<style>
+    /* Fundo degrade moderno */
+    body {
+        background: linear-gradient(135deg, #2f3a6b, #0d0d0e);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .input {
+        background-color: white;
+        border-color: rgb(193, 193, 193);
+        color: #4a4a4a;
+    }
+
+    .label {
+        color: #4a4a4a;
+    }
+
+    /* Card de login */
+    .login-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .login-title {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+        color: #4a4a4a;
+    }
+
+    /* Botão estilizado*/
+    .login-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 8px;
+        font-weight: bold;
+        border-color: #4a4a4a;
+    }
+
+    .login-btn:hover {
+        background: #5a67d8;
+    }
+
+    /* Responsividade */
+    @media (max-width: 500px) {
+        .login-card {
+            margin: 1rem;
+        }
+    }
+</style>
+<div class="login-card">
+    <h2 class="login-title">Login!</h2>
+
+
+    <form method="POST" class="field">
+        <!-- Campo de email -->
+        <label class="label">Email</label>
+        <div class="control">
+            <input class="input" type="email" placeholder="Digite seu email" id="email" name="email" required>
+        </div>
+
+        <!-- Campo de senha -->
+        <div class="field">
+            <label class="label">Senha</label>
+            <input class="input" type="password" placeholder="Digite sua senha" id="senha" name="password" required>
+        </div>
+        <!-- Esqueceu a senha -->
+        <div class="field">
+            <p class="has-text-right"></p>
+        </div>
+        <!-- Botão de login-->
+        <div class="field">
+            <button class="button is-fullwidth login-btn" onclick="">Entrar</button>
+        </div>
+    </form>
+</div>
+<div id="notifications" class="notifications"></div>
+<script>
+
+</script>
+
+{% endblock %}

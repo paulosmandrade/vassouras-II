@@ -1,0 +1,46 @@
+:root{
+    --azul_claro:#60A5FA;
+    --azul_escuro:#002868;
+    --azul_cinza: #0F172A;
+    --cinza_poetry:#1E293B;
+    --gelo:#C6CAF7;
+}
+
+html,body{
+    background-color: var(--azul_cinza);
+}
+
+/* Formatando NAVBAR */
+.navbar{
+    background-color: var(--azul_escuro);
+}
+
+.navbar a {
+    color:var(--gelo);
+    transition: color 0.3s; /* animação suave */
+}
+
+.navbar a:hover {
+    color:var(--azul_claro);
+    background-color: var(--cinza_poetry); /* cor quando passar o mouse */
+}
+
+.navbar .navbar-dropdown {
+    background-color: var(--azul_escuro) !important;
+    color: var(--gelo) !important;
+}
+
+/* Fundo padrão dos itens do dropdown */
+.navbar .navbar-dropdown .navbar-item {
+    background-color: var(--azul_escuro) !important;
+    color: var(--gelo) !important;
+}
+
+/* Fundo ao passar o mouse */
+.navbar .navbar-dropdown .navbar-item:hover {
+    background-color: var(--cinza_poetry) !important;
+    color: var(--azul_claro) !important;
+}
+#btn-logout{
+    background-color: var(--cinza_poetry);
+}

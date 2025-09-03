@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notificacao.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>VassouraS2</title>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation" style="display:none">
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item">Home</a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Cadastro</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">Empresas</a>
+                        <a class="navbar-item">Produtos</a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item">Usuários</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">Importação</a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">Relacionamento</a>
+                        <a class="navbar-item">Saldo Inicial</a>
+                        <a class="navbar-item">xmls</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button" id="btn-logout">
+                        <strong>Sair</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <ul class="notifications">
+        <li class="toast" data-category="{{ category }}" data-message="{{ message }}"></li>
+    </ul>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% block conteudo %}
+    {% endblock %}
+
+</body>
+<script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
+<script src="{{ url_for('static', filename='js/notificacao.js') }}"></script>
+<script>
+    // Inicializa o SocketIO
+    var socketio = io('http://localhost:5000', {
+        transports: ['websocket']
+    });
+
+    //inserir HTML
+    socketio.on("innerHTML", function (msg) {
+        document.getElementById(msg.id).innerHTML = msg.html;
+    });
+
+    socketio.on("connect", () => {
+        console.log("✅ Conectado ao servidor socketio com ID:", socketio.id);
+    });
+
+    // Ouvir o evento 'notification' do servidor
+    socketio.on('show_notification', (data) => {
+        createToast(data.type, data.message);
+    });
+
+    // Redirecionamento de rotas
+    socketio.on('redirect', (data) => {
+        console.log('Redirecionando para', data.url);
+        window.location.href = data.url;  // redireciona para /home
+    });
+
+</script>
+
+</html>
